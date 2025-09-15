@@ -2,18 +2,21 @@ name: SonarCloud Only
 run-name: ${{ github.actor }} is running SonarCloud analysis
 
 on:
-  workflow_dispatch:   # déclenchement manuel
+  workflow_dispatch:
   push:
     branches: [ "main" ]
 
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # nécessaire pour l'analyse complète
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -21,12 +24,19 @@ jobs:
           java-version: 11
           distribution: temurin
 
+      - name: Build backend
+        run: mvn clean verify
+
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          args: >
-            -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.sources=.
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
+         projectBaseDir: back
+         args: >
+          -Dsonar.organization=Mako2727
+          -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+          -Dsonar.sources=.
+          -Dsonar.java.binaries=target/classes
+          -Dsonar.java.coveragePlugin=jacoco
+          -Dsonar.jacoco.reportPaths=target/jacoco.exec
+    env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
