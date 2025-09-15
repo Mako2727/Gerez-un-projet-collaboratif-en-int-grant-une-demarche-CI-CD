@@ -32,7 +32,7 @@ jobs:
         with:
          projectBaseDir: back
          args: >
-          -Dsonar.organization=Mako2727
+          -Dsonar.organization=mako2727
           -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
           -Dsonar.sources=.
           -Dsonar.java.binaries=target/classes
