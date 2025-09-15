@@ -42,5 +42,5 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-            name: coverage-report
-            path: coverage/bobapp/index.html 
+          name: coverage-report
+          path: coverage/**
