@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Lint (optionnel, nécessite ESLint)
+      # Lint (optionnel)
       #- name: Run lint
       #  run: npm run lint
 
