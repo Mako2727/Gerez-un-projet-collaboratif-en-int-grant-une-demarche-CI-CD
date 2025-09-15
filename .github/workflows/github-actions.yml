@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Commenter ou installer ESLint si ng lint échoue
+      # Lint (optionnel, nécessite ESLint)
       #- name: Run lint
       #  run: npm run lint
 
@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage
+          path: coverage/bobapp
