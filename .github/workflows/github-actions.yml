@@ -24,7 +24,7 @@ jobs:
 
       # Installer les dépendances nécessaires pour ChromeHeadless
       - name: Install Chrome dependencies
-        run: sudo apt-get update && sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxss1 libasound2
+        run: sudo apt-get update && sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxss1 libasound2-data
 
       - name: Install npm dependencies
         run: npm ci
