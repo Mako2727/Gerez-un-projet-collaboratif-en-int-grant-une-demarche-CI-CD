@@ -37,6 +37,10 @@ jobs:
         id: test
         run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
+
+      - name: List coverage folder
+        run: ls -R coverage || echo "Coverage folder not found"
+
       # Upload coverage report sans bloquer le workflow si le dossier n'existe pas
       - name: Upload coverage report
         if: ${{ always() }}
