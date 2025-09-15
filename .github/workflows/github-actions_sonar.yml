@@ -1,60 +1,32 @@
-name: SonarCloud Quality Check
-run-name: ${{ github.actor }} is running SonarCloud Analysis
+name: SonarCloud Only
+run-name: ${{ github.actor }} is running SonarCloud analysis
 
 on:
+  workflow_dispatch:   # déclenchement manuel
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
-  sonar-analysis:
+  sonarcloud:
     runs-on: ubuntu-latest
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Ajouter le token SonarCloud dans GitHub Secrets
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
-
-      # Setup Node.js pour Angular
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
         with:
-          node-version: 18
+          fetch-depth: 0   # nécessaire pour l'analyse complète
 
-      # Installer les dépendances front
-      - name: Install Frontend Dependencies
-        run: npm ci
-        working-directory: front
-
-      # Run Angular tests (Jest/Karma) avec coverage
-      - name: Run Frontend Tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
-        working-directory: front
-
-      # Setup Java pour le backend
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: 11
           distribution: temurin
-          cache: maven
 
-      # Run backend tests avec Jacoco
-      - name: Run Backend Tests & Jacoco
-        run: mvn clean verify
-        working-directory: back
-
-      # Analyse SonarCloud
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-         args: >
-          -Dsonar.organization=mako2727
-          -Dsonar.projectKey=mako2727_bobapp
-          -Dsonar.sources=./back,./front
-          -Dsonar.java.binaries=./back/target/classes
-          -Dsonar.javascript.lcov.reportPaths=front/coverage/bobapp/lcov.info
-          -Dsonar.coverage.jacoco.xmlReportPaths=back/target/site/jacoco/jacoco.xml
-          env:
+          args: >
+            -Dsonar.organization=mako2727
+            -Dsonar.projectKey=mako2727
+            -Dsonar.sources=.
+        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
