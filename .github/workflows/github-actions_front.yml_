@@ -1,5 +1,5 @@
 name: CI Frontend Angular (Karma/Jasmine)
-run-name: ${{ github.actor }} is testing out GitHub Actions
+run-name: ${{ github.actor }} is testing Frontend
 
 on: 
   push:

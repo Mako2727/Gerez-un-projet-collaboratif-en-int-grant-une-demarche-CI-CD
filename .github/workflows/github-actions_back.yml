@@ -9,7 +9,6 @@ on:
 
 jobs:
   test-and-coverage-backend:
-    name: Run Spring Boot Tests & Generate Jacoco Coverage
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,15 +17,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup Java 11
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: 11
           distribution: temurin
           cache: maven
 
-      - name: Run Maven tests with Jacoco
-        run: mvn clean test jacoco:report
+      - name: Run Maven tests and generate Jacoco report
+        run: mvn clean verify
+
+      - name: List Jacoco report
+        run: ls -R target/site || echo "target/site not found"
 
       - name: Upload backend coverage report
         if: ${{ always() }}
