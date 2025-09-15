@@ -26,7 +26,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=mako2727_bobapp
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.sources=.
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
