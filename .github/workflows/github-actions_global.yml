@@ -85,6 +85,11 @@ jobs:
           java-version: 11
           distribution: temurin
 
+      - name: Debug before Sonar
+        run: |
+         echo "Listing back module:"
+         ls -R back
+
       - name: Download Backend Artifacts
         uses: actions/download-artifact@v4
         with:
