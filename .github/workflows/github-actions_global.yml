@@ -85,7 +85,7 @@ jobs:
           node-version: 18
 
       - name: Prepare coverage report for Sonar
-        run: cp coverage/bobapp/lcov.info .
+        run: cp coverage/bobapp/lcov.info lcov.info
         working-directory: front
 
       - name: SonarCloud Scan (Front)
@@ -123,6 +123,6 @@ jobs:
           projectBaseDir: back
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Backend
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
