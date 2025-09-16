@@ -94,7 +94,10 @@ jobs:
           projectBaseDir: front
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Frontend
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -124,5 +127,9 @@ jobs:
           args: >
             -Dsonar.organization=mako2727
             -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.sources=src/main/java
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.java.coveragePlugin=jacoco
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
