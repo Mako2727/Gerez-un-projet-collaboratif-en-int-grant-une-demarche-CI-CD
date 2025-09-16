@@ -67,8 +67,8 @@ jobs:
         with:
           name: backend-target
           path: |
-            target/classes
-            target/jacoco.exec
+            back/target/classes
+            back/target/jacoco.exec
 
   # ========== SONAR (Multi-module) ==========
   sonar:
