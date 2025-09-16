@@ -8,7 +8,7 @@ on:
   workflow_dispatch:   # déclenchement manuel
 
 jobs:
-  # ========== FRONT ==========
+  # ========== FRONT ========== 
   frontend:
     name: CI Frontend Angular
     runs-on: ubuntu-latest
@@ -34,14 +34,7 @@ jobs:
       - name: Run Karma tests with coverage
         run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-      - name: Upload coverage report
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report-front
-          path: front/coverage/bobapp
-
-  # ========== BACK ==========
+  # ========== BACK ========== 
   backend:
     name: CI Backend Spring Boot
     runs-on: ubuntu-latest
@@ -63,50 +56,11 @@ jobs:
       - name: Run Maven tests and generate Jacoco report
         run: mvn clean verify
 
-      - name: Upload backend coverage report
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report-back
-          path: back/target/site/jacoco/**
-
-  # ========== SONAR FRONT ==========
-  sonar-frontend:
-    name: SonarCloud Frontend Analysis
+  # ========== SONAR (Multi-module) ==========
+  sonar:
+    name: SonarCloud FullStack Analysis
     runs-on: ubuntu-latest
-    needs: frontend
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Verify coverage report exists
-        run: ls -R coverage/bobapp
-        working-directory: front
-
-      - name: SonarCloud Scan (Front)
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: front
-          args: >
-            -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.sources=src/app
-            -Dsonar.tests=src
-            -Dsonar.test.inclusions=**/*.spec.ts
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  # ========== SONAR BACK ==========
-  sonar-backend:
-    name: SonarCloud Backend Analysis
-    runs-on: ubuntu-latest
-    needs: backend
+    needs: [frontend, backend]
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -117,20 +71,9 @@ jobs:
           java-version: 11
           distribution: temurin
 
-      - name: Compile backend
-        run: mvn clean verify
-        working-directory: back
-
-      - name: SonarCloud Scan (Back)
+      - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: back
-          args: >
-            -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.sources=src/main/java
-            -Dsonar.java.binaries=target/classes
-            -Dsonar.java.coveragePlugin=jacoco
-            -Dsonar.jacoco.reportPaths=target/jacoco.exec
+          projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
