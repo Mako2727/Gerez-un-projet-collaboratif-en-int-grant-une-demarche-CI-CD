@@ -85,7 +85,7 @@ jobs:
           node-version: 18
 
       - name: Prepare coverage report for Sonar
-        run: cp coverage/bobapp/lcov.info lcov.info
+        run: cp coverage/bobapp/lcov.info
         working-directory: front
 
       - name: SonarCloud Scan (Front)
@@ -114,7 +114,7 @@ jobs:
           distribution: temurin
 
       - name: Compile backend
-        run: mvn clean compile
+        run: mvn clean verify
         working-directory: back
 
       - name: SonarCloud Scan (Back)
