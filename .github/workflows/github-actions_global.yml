@@ -90,7 +90,7 @@ jobs:
           projectBaseDir: front
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_front
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.sources=.
             -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
         env:
@@ -121,7 +121,7 @@ jobs:
           projectBaseDir: back
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_back
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.sources=.
             -Dsonar.java.binaries=target/classes
             -Dsonar.java.coveragePlugin=jacoco
