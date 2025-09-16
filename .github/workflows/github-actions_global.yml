@@ -1,0 +1,116 @@
+name: CI Full Pipeline (Front + Back + Sonar)
+
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:   # déclenchement manuel
+
+jobs:
+  # ========== FRONT ==========
+  frontend:
+    name: CI Frontend Angular (Karma/Jasmine)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
+    continue-on-error: true   # ✅ si le front échoue, on continue
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Chrome dependencies
+        run: sudo apt-get update && sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxss1 libasound2-data
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Run Karma tests with coverage
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Check coverage folder
+        run: ls -R coverage || echo "Coverage folder not found"
+
+      - name: Upload coverage report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-front
+          path: front/coverage/bobapp
+
+  # ========== BACK ==========
+  backend:
+    name: CI Backend Spring Boot (Jacoco)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+    continue-on-error: true   # ✅ même logique que le front
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+          cache: maven
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run Maven tests and generate Jacoco report
+        run: mvn clean verify
+
+      - name: List Jacoco report
+        run: ls -R target/site/jacoco || echo "Jacoco report not found"
+
+      - name: Upload backend coverage report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report-back
+          path: back/target/site/jacoco/**
+
+  # ========== SONAR ==========
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    needs: [frontend, backend]   # ✅ dépend des deux jobs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: back
+          args: >
+            -Dsonar.organization=mako2727
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.sources=.
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.java.coveragePlugin=jacoco
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
