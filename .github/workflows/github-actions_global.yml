@@ -8,7 +8,7 @@ on:
   workflow_dispatch:   # déclenchement manuel
 
 jobs:
-  # ========== FRONT ========== 
+  # ========== FRONT ==========
   frontend:
     name: CI Frontend Angular
     runs-on: ubuntu-latest
@@ -34,7 +34,13 @@ jobs:
       - name: Run Karma tests with coverage
         run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-  # ========== BACK ========== 
+      - name: Upload Frontend Coverage Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: coverage/lcov.info
+
+  # ========== BACK ==========
   backend:
     name: CI Backend Spring Boot
     runs-on: ubuntu-latest
@@ -56,6 +62,14 @@ jobs:
       - name: Run Maven tests and generate Jacoco report
         run: mvn clean verify
 
+      - name: Upload Backend Classes and Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-target
+          path: |
+            target/classes
+            target/jacoco.exec
+
   # ========== SONAR (Multi-module) ==========
   sonar:
     name: SonarCloud FullStack Analysis
@@ -70,6 +84,18 @@ jobs:
         with:
           java-version: 11
           distribution: temurin
+
+      - name: Download Backend Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: backend-target
+          path: back/target
+
+      - name: Download Frontend Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-coverage
+          path: front/coverage
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
