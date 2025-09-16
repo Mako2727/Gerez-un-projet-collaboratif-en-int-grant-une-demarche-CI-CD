@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch:   # déclenchement manuel
+  workflow_dispatch:
 
 jobs:
   # ========== FRONT ==========
@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         working-directory: front
-    continue-on-error: true   # ✅ si le front échoue, on continue
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -34,9 +34,6 @@ jobs:
       - name: Run Karma tests with coverage
         run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-      - name: Check coverage folder
-        run: ls -R coverage || echo "Coverage folder not found"
-
       - name: Upload coverage report
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
@@ -51,7 +48,7 @@ jobs:
     defaults:
       run:
         working-directory: back
-    continue-on-error: true   # ✅ même logique que le front
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -74,9 +71,6 @@ jobs:
       - name: Run Maven tests and generate Jacoco report
         run: mvn clean verify
 
-      - name: List Jacoco report
-        run: ls -R target/site/jacoco || echo "Jacoco report not found"
-
       - name: Upload backend coverage report
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
@@ -84,38 +78,78 @@ jobs:
           name: jacoco-report-back
           path: back/target/site/jacoco/**
 
-# ========== SONAR ==========
-  sonar:
-    name: SonarCloud Analysis
+  # ========== SONAR FRONT ==========
+  sonar-front:
+    name: SonarCloud Analysis Front
     runs-on: ubuntu-latest
-    needs: [frontend, backend]   # ✅ dépend des deux jobs
+    needs: [frontend]
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: 11
-        distribution: temurin
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    # Compile backend et génère classes + Jacoco
-    - name: Compile backend and run tests
-      run: mvn clean verify
-      working-directory: back
+      - name: Download coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-report-front
+          path: front/coverage/bobapp
 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@v2
-      with:
-        projectBaseDir: back
-        args: >
-          -Dsonar.organization=mako2727
-          -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-          -Dsonar.sources=.
-          -Dsonar.java.binaries=target/classes
-          -Dsonar.java.coveragePlugin=jacoco
-          -Dsonar.jacoco.reportPaths=target/jacoco.exec
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan Front
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: front
+          args: >
+            -Dsonar.organization=mako2727
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.sources=src
+            -Dsonar.language=ts
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # ========== SONAR BACK ==========
+  sonar-back:
+    name: SonarCloud Analysis Back
+    runs-on: ubuntu-latest
+    needs: [backend]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+
+      - name: Compile backend
+        run: mvn clean compile
+        working-directory: back
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: jacoco-report-back
+          path: back/target/site/jacoco
+
+      - name: SonarCloud Scan Back
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: back
+          args: >
+            -Dsonar.organization=mako2727
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.sources=src
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.java.coveragePlugin=jacoco
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
