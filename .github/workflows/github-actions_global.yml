@@ -60,7 +60,7 @@ jobs:
           cache: maven
 
       - name: Run Maven tests and generate Jacoco report
-        run: mvn clean verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify
 
       - name: Upload Backend Classes and Coverage
         uses: actions/upload-artifact@v4
@@ -91,11 +91,22 @@ jobs:
           name: backend-target
           path: back/target
 
+
+      - name: Debug Backend Download
+        run: |
+         echo "Backend directory after download:"
+         ls -R back/target
+
       - name: Download Frontend Artifacts
         uses: actions/download-artifact@v4
         with:
           name: frontend-coverage
           path: front/coverage
+
+      - name: Debug Frontend Download
+        run: |
+            echo "Frontend directory after download:"
+            ls -R front/coverage
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
