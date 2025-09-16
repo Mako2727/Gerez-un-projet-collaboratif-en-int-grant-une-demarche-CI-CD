@@ -84,8 +84,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Prepare coverage report for Sonar
-        run: cp coverage/bobapp/lcov.info
+      - name: Verify coverage report exists
+        run: ls -R coverage/bobapp
         working-directory: front
 
       - name: SonarCloud Scan (Front)
