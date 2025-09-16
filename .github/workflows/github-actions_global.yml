@@ -84,15 +84,17 @@ jobs:
         with:
           node-version: 18
 
+      - name: Prepare coverage report for Sonar
+        run: cp coverage/bobapp/lcov.info .
+        working-directory: front
+
       - name: SonarCloud Scan (Front)
         uses: sonarsource/sonarcloud-github-action@v2
         with:
           projectBaseDir: front
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.sources=.
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.projectKey=Mako2727_Frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -121,10 +123,6 @@ jobs:
           projectBaseDir: back
           args: >
             -Dsonar.organization=mako2727
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.sources=.
-            -Dsonar.java.binaries=target/classes
-            -Dsonar.java.coveragePlugin=jacoco
-            -Dsonar.jacoco.reportPaths=target/jacoco.exec
+            -Dsonar.projectKey=Mako2727_Backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
