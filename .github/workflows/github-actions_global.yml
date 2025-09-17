@@ -120,6 +120,8 @@ jobs:
             ls -R front/coverage
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2        
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
