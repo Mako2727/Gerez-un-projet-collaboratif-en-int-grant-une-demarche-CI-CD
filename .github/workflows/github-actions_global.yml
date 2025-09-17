@@ -1,11 +1,11 @@
 name: CI Full Pipeline (Front + Back + Sonar)
 
-on: 
+on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:   # déclenchement manuel
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   # ========== FRONT ==========
@@ -73,11 +73,11 @@ jobs:
             back/target/classes
             back/target/site/jacoco/jacoco.xml
 
-  # ========== SONAR BACK ==========
-  sonar-back:
-    name: SonarCloud Back
+  # ========== SONAR (Multi-module) ==========
+  sonar:
+    name: SonarCloud FullStack Analysis
     runs-on: ubuntu-latest
-    needs: backend
+    needs: [frontend, backend]
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -94,37 +94,13 @@ jobs:
           name: backend-target
           path: back/target
 
-      - name: Run Sonar Back
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: back
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  # ========== SONAR FRONT ==========
-  sonar-front:
-    name: SonarCloud Front
-    runs-on: ubuntu-latest
-    needs: frontend
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: temurin
-
-      - name: Download Frontend Coverage
+      - name: Download Frontend Artifacts
         uses: actions/download-artifact@v4
         with:
           name: frontend-coverage
           path: front/coverage
 
-      - name: Run Sonar Front
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: front
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2        
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
