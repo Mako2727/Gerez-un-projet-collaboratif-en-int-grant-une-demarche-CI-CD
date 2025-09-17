@@ -113,9 +113,13 @@ jobs:
             echo "Frontend directory after download:"
             ls -R front/coverage
 
+      - name: Debug before Sonar
+        run: |
+            echo "Current directory: $(pwd)"
+            ls -R back/target
+            ls -R front/coverage
+
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: .
+        uses: sonarsource/sonarcloud-github-action@v2        
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
