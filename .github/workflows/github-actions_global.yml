@@ -71,13 +71,13 @@ jobs:
           name: backend-target
           path: |
             back/target/classes
-            back/target/jacoco.exec
+            back/target/site/jacoco/jacoco.xml
 
-  # ========== SONAR (Multi-module) ==========
-  sonar:
-    name: SonarCloud FullStack Analysis
+  # ========== SONAR BACK ==========
+  sonar-back:
+    name: SonarCloud Back
     runs-on: ubuntu-latest
-    needs: [frontend, backend]
+    needs: backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -88,41 +88,43 @@ jobs:
           java-version: 11
           distribution: temurin
 
-      - name: Debug before Sonar
-        run: |
-         echo "Listing back module:"
-         ls -R back
-
       - name: Download Backend Artifacts
         uses: actions/download-artifact@v4
         with:
           name: backend-target
           path: back/target
 
+      - name: Run Sonar Back
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: back
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Debug Backend Download
-        run: |
-         echo "Backend directory after download:"
-         ls -R back/target
+  # ========== SONAR FRONT ==========
+  sonar-front:
+    name: SonarCloud Front
+    runs-on: ubuntu-latest
+    needs: frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-      - name: Download Frontend Artifacts
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+
+      - name: Download Frontend Coverage
         uses: actions/download-artifact@v4
         with:
           name: frontend-coverage
           path: front/coverage
 
-      - name: Debug Frontend Download
-        run: |
-            echo "Frontend directory after download:"
-            ls -R front/coverage
-
-      - name: Debug before Sonar
-        run: |
-            echo "Current directory: $(pwd)"
-            ls -R back/target
-            ls -R front/coverage
-
-      - name: SonarCloud Scan
+      - name: Run Sonar Front
         uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: front
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
