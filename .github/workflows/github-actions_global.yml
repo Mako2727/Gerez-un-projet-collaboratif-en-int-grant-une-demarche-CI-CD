@@ -62,6 +62,9 @@ jobs:
       - name: Run Maven tests and generate Jacoco report
         run: mvn clean verify
 
+      - name: Generate Jacoco XML report
+        run: mvn jacoco:report
+
       - name: Upload Backend Classes and Coverage
         uses: actions/upload-artifact@v4
         with:
@@ -121,7 +124,5 @@ jobs:
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
