@@ -102,8 +102,7 @@ jobs:
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectKey: Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-          organization: mako2727
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_PROJECT_KEY: Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            SONAR_ORGANIZATION: mako2727
