@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ========== FRONTEND ==========
+  # ========== FRONT ==========
   frontend:
     name: CI Frontend Angular
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
 
-  # ========== BACKEND ==========
+  # ========== BACK ==========
   backend:
     name: CI Backend Spring Boot
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
             back/target/classes
             back/target/site/jacoco/jacoco.xml
 
-  # ========== SONAR ==========
+  # ========== SONAR (Multi-module) ==========
   sonar:
     name: SonarCloud FullStack Analysis
     runs-on: ubuntu-latest
@@ -101,8 +101,6 @@ jobs:
           path: front/coverage
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
+        uses: sonarsource/sonarcloud-github-action@v2        
         env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            SONAR_PROJECT_KEY: Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            SONAR_ORGANIZATION: mako2727
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
