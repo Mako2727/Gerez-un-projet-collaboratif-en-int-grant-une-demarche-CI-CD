@@ -137,4 +137,5 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/monapp-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/monapp-frontend:${{ github.sha }}
+
             
