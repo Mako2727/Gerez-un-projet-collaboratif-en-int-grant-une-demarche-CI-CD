@@ -10,7 +10,7 @@ on:
 jobs:
   # ========== FRONT ==========
   frontend:
-    name: CI Frontend Angular
+    name: CI Frontend Angular 
     runs-on: ubuntu-latest
     defaults:
       run:
