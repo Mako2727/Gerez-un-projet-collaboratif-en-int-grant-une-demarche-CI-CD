@@ -40,10 +40,3 @@ jobs:
         with:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: front
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}      
