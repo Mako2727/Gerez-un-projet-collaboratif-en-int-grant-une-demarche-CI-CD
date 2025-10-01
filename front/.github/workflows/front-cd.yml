@@ -27,7 +27,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Build Angular App
+      - name: Build Angular App (Production)
         run: npm run build -- --configuration production
 
       - name: Log in to Docker Hub
