@@ -44,6 +44,10 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: front
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}      
+         projectBaseDir: front
+         args: >
+            -Dsonar.projectKey=ton-projet       # remplace par le key de ton projet
+            -Dsonar.organization=ton-org        # remplace par ton org SonarCloud
+            -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
+    env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
