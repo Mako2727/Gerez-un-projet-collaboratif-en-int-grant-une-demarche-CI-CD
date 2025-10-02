@@ -8,6 +8,7 @@ on:
       - 'front/**'   # uniquement si des fichiers front ont changé
 
 jobs:
+    
   build-and-test:
     runs-on: ubuntu-latest
     defaults:
@@ -16,6 +17,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+
+      - name: Afficher le nom de la branche
+        run: |
+            echo "La branche actuelle est : ${{ github.ref_name }} (head_ref: ${{ github.head_ref }})"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
