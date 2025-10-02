@@ -50,4 +50,4 @@ jobs:
          args: >
           -Dsonar.projectKey=ton-projet
           -Dsonar.organization=ton-org
-          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }} 
+          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}  
