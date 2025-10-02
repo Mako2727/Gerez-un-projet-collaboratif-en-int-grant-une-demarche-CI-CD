@@ -1,15 +1,11 @@
 name: CI Frontend Angular
 
 on:
-  pull_request:
-    branches: ["main"]
-    paths:
-      - 'front/**'         # déclenche uniquement si des fichiers front ont changé
   push:
     branches:
-      - '**'               # déclenche sur toutes les branches
+      - '**'         # déclenche sur toutes les branches
     paths:
-      - 'front/**'
+      - 'front/**'   # uniquement si des fichiers front ont changé
 
 jobs:
   build-and-test:
@@ -48,6 +44,6 @@ jobs:
          args: >
             -Dsonar.projectKey=ton-projet
             -Dsonar.organization=ton-org
-            -Dsonar.branch.name=${{ github.ref_name }}
+            -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
         env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
