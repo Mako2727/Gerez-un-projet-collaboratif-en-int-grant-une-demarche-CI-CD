@@ -6,7 +6,7 @@ import { Joke } from '../model/joke.model';
 @Injectable({
   providedIn: 'root'
 })
-export class JokesService {
+export class JokesService { 
 
   private pathService = 'api/joke';
 
