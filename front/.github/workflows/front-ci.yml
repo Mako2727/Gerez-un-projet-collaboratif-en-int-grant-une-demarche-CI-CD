@@ -49,5 +49,5 @@ jobs:
             -Dsonar.projectKey=ton-projet       # remplace par le key de ton projet
             -Dsonar.organization=ton-org        # remplace par ton org SonarCloud
             -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
-    env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
+        env:
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
