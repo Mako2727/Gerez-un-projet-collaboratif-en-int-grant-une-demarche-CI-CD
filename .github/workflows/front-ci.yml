@@ -41,9 +41,14 @@ jobs:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
 
+      - name: Vérifier le contenu du répertoire front
+        run: |
+          echo "Contenu du répertoire front:"
+          ls -R front    
+
       - name: Vérifier le coverage front
         run: |
-          if [ -f front/coverage/bobapp/lcov.info ]; then
+          if [ -f coverage/bobapp/lcov.info ]; then
           echo "Fichier lcov.info trouvé:"
           head -n 10 front/coverage/bobapp/lcov.info
           else
