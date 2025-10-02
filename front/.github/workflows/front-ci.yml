@@ -43,7 +43,7 @@ jobs:
           path: front/coverage/bobapp/lcov.info
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
+        uses: sonarsource/sonarcloud-github-action@v2 
         with:
          projectBaseDir: front
          args: >
