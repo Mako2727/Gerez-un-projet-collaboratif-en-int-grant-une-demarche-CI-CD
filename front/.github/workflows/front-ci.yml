@@ -47,8 +47,8 @@ jobs:
         with:
          projectBaseDir: front
          args: >
-            -Dsonar.projectKey=ton-projet
-            -Dsonar.organization=ton-org
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.organization=mako2727
             -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
         env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
