@@ -37,8 +37,8 @@ jobs:
       - name: Build and Push Frontend Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: Dockerfile   # le Dockerfile doit être dans le dossier front/
+          context: ./front
+          file: ./front/Dockerfile 
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/monapp-frontend:latest
