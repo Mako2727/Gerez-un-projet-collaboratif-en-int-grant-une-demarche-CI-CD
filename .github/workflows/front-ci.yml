@@ -56,7 +56,7 @@ jobs:
         run: |
           if [ -f coverage/bobapp/lcov.info ]; then
           echo "Fichier lcov.info trouvé:"
-          head -n 10 front/coverage/bobapp/lcov.info
+          head -n 10 coverage/bobapp/lcov.info
           else
           echo "lcov.info NON trouvé"
           fi    
