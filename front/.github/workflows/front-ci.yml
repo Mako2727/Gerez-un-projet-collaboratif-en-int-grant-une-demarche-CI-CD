@@ -6,8 +6,8 @@ on:
     paths:
       - 'front/**'         # déclenche uniquement si des fichiers front ont changé
   push:
-    branches-ignore:
-      - main
+    branches:
+      - '**'               # déclenche sur toutes les branches
     paths:
       - 'front/**'
 
@@ -43,11 +43,11 @@ jobs:
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
          projectBaseDir: front
          args: >
-            -Dsonar.projectKey=ton-projet       # remplace par le key de ton projet
-            -Dsonar.organization=ton-org        # remplace par ton org SonarCloud
-            -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
-        env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
+          -Dsonar.projectKey=ton-projet
+          -Dsonar.organization=ton-org
+          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }} 
