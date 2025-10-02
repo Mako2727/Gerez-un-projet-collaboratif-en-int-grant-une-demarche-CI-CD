@@ -44,11 +44,15 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-         projectBaseDir: front
-         args: >
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-            -Dsonar.organization=mako2727
-            -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
+            projectBaseDir: front
+            args: >
+                -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+                -Dsonar.organization=mako2727
+                -Dsonar.sources=src/app
+                -Dsonar.tests=src
+                -Dsonar.test.inclusions=**/*.spec.ts
+                -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+                -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
