@@ -47,7 +47,7 @@ jobs:
         with:
          projectBaseDir: front
          args: >
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD 
             -Dsonar.organization=mako2727
             -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
         env:
