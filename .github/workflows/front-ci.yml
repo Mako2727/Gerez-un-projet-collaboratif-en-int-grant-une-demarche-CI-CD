@@ -44,7 +44,7 @@ jobs:
           args: >
             -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=mako2727
-            -Dsonar.sources=src/app
+            -Dsonar.sources=src
             -Dsonar.tests=src
             -Dsonar.test.inclusions=**/*.spec.ts
             -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
