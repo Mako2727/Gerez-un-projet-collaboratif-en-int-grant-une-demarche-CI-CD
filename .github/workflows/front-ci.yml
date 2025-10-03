@@ -3,7 +3,7 @@ name: CI Frontend Angular
 on:
   push:
     branches:
-      - main          # déclenche sur toutes les branches
+      - '**'          # déclenche sur toutes les branches
     paths:
       - 'front/**'   # uniquement si des fichiers front ont changé
 
