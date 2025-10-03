@@ -44,7 +44,7 @@ jobs:
           args: >
             -Dsonar.projectKey=mako2727_frontend-app
             -Dsonar.organization=mako2727
-            -Dsonar.sources=src
+            -Dsonar.sources=src/app
             -Dsonar.tests=src
             -Dsonar.test.inclusions=**/*.spec.ts
             -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
