@@ -36,13 +36,13 @@ jobs:
         with:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
-      
+
       - name: SonarCloud Scan Frontend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
           projectBaseDir: front
           args: >
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD-frontend
             -Dsonar.organization=mako2727
             -Dsonar.sources=src
             -Dsonar.tests=src
