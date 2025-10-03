@@ -11,7 +11,7 @@ export class JokesService {
   private pathService = 'api/joke';    
 
   private subject: BehaviorSubject<Joke | null> = new BehaviorSubject<Joke | null>(null);
-   
+    
   constructor(private httpClient: HttpClient) {    
     this.getRandomJoke();
   }
