@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.bobapp.service.JokeService;
 
 @RestController
-@RequestMapping("api/joke")
+@RequestMapping("api/joke") 
 public class JokeController {
 
     private final JokeService jokeService;
