@@ -34,7 +34,7 @@ jobs:
         with:
           projectBaseDir: back
           args: >
-            -Dsonar.projectKey=mako2727_back
+            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
             -Dsonar.organization=mako2727
             -Dsonar.sources=src/main/java
             -Dsonar.tests=src/test/java
