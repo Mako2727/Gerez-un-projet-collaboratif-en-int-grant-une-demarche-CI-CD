@@ -40,32 +40,11 @@ jobs:
         with:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
-
-      - name: Vérifier le contenu du répertoire front et coverage
-        run: |
-          echo "Répertoire courant: $(pwd)"
-          echo "Liste des fichiers dans front:"
-          ls -R
-          if [ -f coverage/bobapp/lcov.info ]; then
-          echo "✅ lcov.info trouvé !"
-          else
-          echo "❌ lcov.info NON trouvé !"
-          fi    
-
-      - name: Vérifier le coverage front
-        run: |
-          if [ -f coverage/bobapp/lcov.info ]; then
-          echo "Fichier lcov.info trouvé:"
-          head -n 10 coverage/bobapp/lcov.info
-          else
-          echo "lcov.info NON trouvé"
-          fi    
-
-      - name: SonarCloud Scan Frontend
+      
+      - name: SonarCloud Scan Backend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
          args: >
           -Dsonar.branch.name=main  
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
