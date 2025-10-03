@@ -7,7 +7,7 @@ import { Joke } from '../model/joke.model';
   providedIn: 'root'
 })
 export class JokesService {     
-
+  
   private pathService = 'api/joke';  
 
   private subject: BehaviorSubject<Joke | null> = new BehaviorSubject<Joke | null>(null);

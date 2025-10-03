@@ -64,7 +64,8 @@ jobs:
       - name: SonarCloud Scan Frontend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: front
+         args: >
+          -Dsonar.branch.name=main  
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
