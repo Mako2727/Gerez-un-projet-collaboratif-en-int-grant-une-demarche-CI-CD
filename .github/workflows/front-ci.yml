@@ -42,7 +42,7 @@ jobs:
         with:
           projectBaseDir: front
           args: >
-            -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD-frontend
+            -Dsonar.projectKey=mako2727_frontend-app
             -Dsonar.organization=mako2727
             -Dsonar.sources=src
             -Dsonar.tests=src
@@ -50,5 +50,5 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
             -Dsonar.branch.name=main
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
     
