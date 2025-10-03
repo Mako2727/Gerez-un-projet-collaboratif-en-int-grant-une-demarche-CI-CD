@@ -13,7 +13,7 @@ public class JokeController {
 
     private final JokeService jokeService;
 
-    JokeController(JokeService jokeService) {
+    JokeController(JokeService jokeService) { 
         this.jokeService = jokeService; 
     }
 

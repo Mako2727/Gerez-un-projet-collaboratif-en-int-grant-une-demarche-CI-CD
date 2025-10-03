@@ -42,7 +42,6 @@ jobs:
       - name: SonarCloud Scan Backend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-         projectBaseDir: back       
          args: >
           -Dsonar.branch.name=main  
         env:
