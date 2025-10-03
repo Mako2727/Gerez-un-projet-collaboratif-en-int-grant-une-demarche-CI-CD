@@ -3,7 +3,9 @@ name: CD Frontend Angular
 on:
   push:
     branches:
-      - main   # ce pipeline se déclenche uniquement sur main
+      - main
+    paths:
+      - 'front/**'   
 
 jobs:
   build-and-docker:
