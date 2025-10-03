@@ -3,7 +3,7 @@ name: CI Frontend Angular
 on:
   push:
     branches:
-      - '**'         # déclenche sur toutes les branches
+      - main          # déclenche sur toutes les branches
     paths:
       - 'front/**'   # uniquement si des fichiers front ont changé
 
@@ -62,6 +62,5 @@ jobs:
                 -Dsonar.tests=src
                 -Dsonar.test.inclusions=**/*.spec.ts
                 -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
-                -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
