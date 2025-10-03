@@ -68,10 +68,10 @@ jobs:
             args: >
                 -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
                 -Dsonar.organization=mako2727
-                -Dsonar.sources=src/app
+                -Dsonar.sources=front/src/app
                 -Dsonar.tests=src
                 -Dsonar.test.inclusions=**/*.spec.ts
-                -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+                -Dsonar.javascript.lcov.reportPaths=front/coverage/bobapp/lcov.info
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
