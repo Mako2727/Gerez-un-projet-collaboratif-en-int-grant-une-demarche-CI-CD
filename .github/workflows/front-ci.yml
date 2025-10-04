@@ -3,9 +3,9 @@ name: CI Frontend Angular
 on:
   push:
     branches:
-      - '**'          # déclenche sur toutes les branches
+      - 'feature/**'   # se déclenche uniquement sur les branches feature
     paths:
-      - 'front/**'   # uniquement si des fichiers front ont changé
+      - 'front/**'     # uniquement si des fichiers du front changent
 
 jobs:
   build-and-test:
