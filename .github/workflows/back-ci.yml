@@ -1,0 +1,45 @@
+name: CI Backend Spring Boot
+
+on:
+  push:
+    branches:
+      - '**'       # déclenche sur toutes les branches
+    paths:
+      - 'back/**'  # uniquement si des fichiers backend changent
+
+jobs:
+  backend:
+    name: CI Backend Spring Boot
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back  # ton dossier backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+          cache: maven
+
+      - name: Run Maven tests (with Jacoco)
+        run: mvn clean verify jacoco:report
+
+      - name: SonarCloud Scan Backend
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: back
+          args: >
+            -Dsonar.projectKey=mako2727_backend-app
+            -Dsonar.organization=mako2727
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.branch.name=master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACK }}

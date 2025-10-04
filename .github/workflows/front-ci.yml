@@ -15,11 +15,7 @@ jobs:
         working-directory: front
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Afficher le nom de la branche #dernier commit
-        run: |
-            echo "La branche actuelle est : ${{ github.ref_name }} (head_ref: ${{ github.head_ref }})"    
+        uses: actions/checkout@v5      
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -41,38 +37,18 @@ jobs:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
 
-      - name: Vérifier le contenu du répertoire front et coverage
-        run: |
-          echo "Répertoire courant: $(pwd)"
-          echo "Liste des fichiers dans front:"
-          ls -R
-          if [ -f coverage/bobapp/lcov.info ]; then
-          echo "✅ lcov.info trouvé !"
-          else
-          echo "❌ lcov.info NON trouvé !"
-          fi    
-
-      - name: Vérifier le coverage front
-        run: |
-          if [ -f coverage/bobapp/lcov.info ]; then
-          echo "Fichier lcov.info trouvé:"
-          head -n 10 coverage/bobapp/lcov.info
-          else
-          echo "lcov.info NON trouvé"
-          fi    
-
-      - name: SonarCloud Scan
+      - name: SonarCloud Scan Frontend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-            projectBaseDir: front
-            args: >
-                -Dsonar.projectKey=Mako2727_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-                -Dsonar.organization=mako2727
-                -Dsonar.sources=src/app
-                -Dsonar.tests=src
-                -Dsonar.test.inclusions=**/*.spec.ts
-                -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
-                -Dsonar.branch.name=main
+          projectBaseDir: front
+          args: >
+            -Dsonar.projectKey=mako2727_frontend-app
+            -Dsonar.organization=mako2727
+            -Dsonar.sources=src/app
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.branch.name=master
         env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
     
