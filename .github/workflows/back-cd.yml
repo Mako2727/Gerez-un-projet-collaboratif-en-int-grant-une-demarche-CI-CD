@@ -1,0 +1,43 @@
+name: CD Backend Spring Boot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'back/**'
+
+jobs:
+  build-and-docker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: temurin
+
+      - name: Build Maven Project
+        run: mvn clean package -DskipTests
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: back
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/monapp-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/monapp-backend:${{ github.sha }}
