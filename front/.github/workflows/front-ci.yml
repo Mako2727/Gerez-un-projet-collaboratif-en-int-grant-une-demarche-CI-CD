@@ -3,9 +3,9 @@ name: CI Frontend Angular
 on:
   push:
     branches:
-      - 'feature-branch'         
+      - 'feature-branch'  
     paths:
-      - 'front/**'   
+      - 'front/**'    
 
 jobs:
   build-and-test:
