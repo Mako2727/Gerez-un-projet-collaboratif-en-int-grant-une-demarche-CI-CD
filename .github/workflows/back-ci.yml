@@ -3,7 +3,7 @@ name: CI Backend Spring Boot
 on:
   push:
     branches:
-      - 'feature/**'
+      - 'feature-branch'
     paths:
       - 'back/**' 
 
