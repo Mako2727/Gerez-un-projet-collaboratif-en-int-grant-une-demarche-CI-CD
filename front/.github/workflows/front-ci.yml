@@ -3,7 +3,7 @@ name: CI Frontend Angular
 on:
   push:
     branches:
-      - '**'          # déclenche sur toutes les branches
+      - 'feature-branch'          # déclenche sur toutes les branches
     paths:
       - 'front/**'   # uniquement si des fichiers front ont changé
 
@@ -15,11 +15,7 @@ jobs:
         working-directory: front
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Afficher le nom de la branche #dernier commit
-        run: |
-            echo "La branche actuelle est : ${{ github.ref_name }} (head_ref: ${{ github.head_ref }})"    
+        uses: actions/checkout@v5      
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -40,11 +36,18 @@ jobs:
         with:
           name: frontend-coverage
           path: front/coverage/bobapp/lcov.info
-      
-      - name: SonarCloud Scan Backend
+
+      - name: SonarCloud Scan Frontend
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-         args: >
-          -Dsonar.branch.name=main  
+          projectBaseDir: front
+          args: >
+            -Dsonar.projectKey=mako2727_frontend-app
+            -Dsonar.organization=mako2727
+            -Dsonar.sources=src/app
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.branch.name=master
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
