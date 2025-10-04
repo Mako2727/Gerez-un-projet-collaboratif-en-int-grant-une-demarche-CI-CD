@@ -27,8 +27,8 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Build Angular App
-        run: npm run build -- --prod
+      - name: Build Angular App (Production)
+        run: npx ng build --configuration production
 
       - name: SonarCloud Scan Frontend
         uses: sonarsource/sonarcloud-github-action@v2
