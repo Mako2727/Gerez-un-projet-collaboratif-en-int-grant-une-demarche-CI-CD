@@ -12,7 +12,7 @@ import com.openclassrooms.bobapp.service.JokeService;
 public class JokeController {
    
     private final JokeService jokeService; 
-
+ 
     JokeController(JokeService jokeService) {    
         this.jokeService = jokeService;   
     } 

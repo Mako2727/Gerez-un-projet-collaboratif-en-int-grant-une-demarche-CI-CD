@@ -6,14 +6,14 @@ import { Joke } from '../model/joke.model';
 @Injectable({
   providedIn: 'root'
 })  
-export class JokesService {      
+export class JokesService {       
     
   private pathService = 'api/joke';    
 
   private subject: BehaviorSubject<Joke | null> = new BehaviorSubject<Joke | null>(null);  
     
   constructor(private httpClient: HttpClient) {    
-    this.getRandomJoke();
+    this.getRandomJoke(); 
   }
  
   public getRandomJoke(): void { 
