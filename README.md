@@ -14,22 +14,20 @@ L’application sera accessible sur http://localhost:4200
 ⚙️ CI – GitHub Actions (Intégration Continue)
 📄 Fichier : .github/workflows/ci-front.yml
 
-Le workflow CI Frontend Angular s’exécute à chaque push sur une branche feature-branch et effectue :
+	Le workflow CI Frontend Angular s’exécute à chaque push sur une branche feature-branch et effectue :
 
-Installation des dépendances Node.js
+	Installation des dépendances Node.js
 
-Exécution des tests unitaires avec Karma en mode headless Chrome
-→ Génération d’un rapport de couverture (coverage/bobapp/lcov.info)
+	Exécution des tests unitaires avec Karma en mode headless Chrome
+	→ Génération d’un rapport de couverture (coverage/bobapp/lcov.info)
 
-Build Angular de production (dist/)
+	Build Angular de production (dist/)
 
-Upload des artefacts :
+	Upload des artefacts :
 
-frontend-coverage → pour SonarCloud
+	frontend-coverage → pour SonarCloud
 
-frontend-dist → pour le déploiement
-
-Analyse SonarCloud dédiée au front :
+	Analyse SonarCloud dédiée au front :
 
 Projet SonarCloud : mako2727_frontend-app
 
@@ -42,26 +40,26 @@ Token : SONAR_TOKEN_FRONT
 🚀 CD – GitHub Actions (Déploiement Continu)
 📄 Fichier : .github/workflows/cd-front.yml
 
-Le workflow CD Frontend Angular s’exécute à chaque push sur la branche main et effectue :
+	Le workflow CD Frontend Angular s’exécute à chaque push sur la branche main et effectue :
 
-Installation et build Angular (production)
+	Installation et build Angular (production)
 
-npx ng build --configuration production
+	npx ng build --configuration production
 
 
-Connexion à Docker Hub via DOCKERHUB_USERNAME et DOCKERHUB_TOKEN
+	Connexion à Docker Hub via DOCKERHUB_USERNAME et DOCKERHUB_TOKEN
 
-Build de l’image Docker du front
+	Build de l’image Docker du front
 
-Contexte : front/
+	Contexte : front/
 
-Dockerfile : front/Dockerfile
+	Dockerfile : front/Dockerfile
 
-Push vers Docker Hub
+P	ush vers Docker Hub
 
-monapp-frontend:latest
+	monapp-frontend:latest
 
-monapp-frontend:${{ github.sha }} (tag unique par commit)
+	monapp-frontend:${{ github.sha }} (tag unique par commit)
 
 📊 KPI à surveiller sur SonarCloud
 Indicateur	Objectif	Outil
@@ -85,61 +83,61 @@ Fichier Dockerfile	front/Dockerfile
 
 Pour développer ou tester localement le back-end :
 
-cd back
-mvn clean install
-mvn spring-boot:run
+	cd back
+	mvn clean install
+	mvn spring-boot:run
 
 
-L’API sera accessible sur http://localhost:8080.
+	L’API sera accessible sur http://localhost:8080.
 
 ⚙️ CI – GitHub Actions (Intégration Continue)
 📄 Fichier : .github/workflows/ci-back.yml
 
-Le workflow CI Backend Spring Boot s’exécute à chaque push sur une branche feature-branch et effectue :
+	Le workflow CI Backend Spring Boot s’exécute à chaque push sur une branche feature-branch et effectue :
 
-Installation et setup Java 11 (Temurin)
+	Installation et setup Java 11 (Temurin)
 
-Exécution des tests unitaires avec Maven + Jacoco → génération du coverage XML (target/site/jacoco/jacoco.xml)
+	Exécution des tests unitaires avec Maven + Jacoco → génération du coverage XML (target/site/jacoco/jacoco.xml)
 
-Analyse SonarCloud dédiée au back :
+	Analyse SonarCloud dédiée au back :
 
-Projet SonarCloud : mako2727_backend-app
+	Projet SonarCloud : mako2727_backend-app
 
-Organisation : mako2727
+	Organisation : mako2727
 
-Token : SONAR_TOKEN_BACK
+	Token : SONAR_TOKEN_BACK
 
-Artefacts uploadés :
+	Artefacts uploadés :
 
-backend-classes → pour SonarCloud
+	backend-classes → pour SonarCloud
 
-backend-coverage → pour SonarCloud
+	backend-coverage → pour SonarCloud
 
 👉 Pour déclencher le CD, assurez-vous que les KPI sur SonarCloud sont respectés, puis réalisez le merge de la branche feature vers main.
 
 🚀 CD – GitHub Actions (Déploiement Continu)
 📄 Fichier : .github/workflows/cd-back.yml
 
-Le workflow CD Backend Spring Boot s’exécute à chaque push sur la branche main et effectue :
+	Le workflow CD Backend Spring Boot s’exécute à chaque push sur la branche main et effectue :
 
-Build Maven projet (skip tests)
+	Build Maven projet (skip tests)
 
-mvn clean package -DskipTests
+	mvn clean package -DskipTests
 
 
-Connexion à Docker Hub via DOCKERHUB_USERNAME et DOCKERHUB_TOKEN
+	Connexion à Docker Hub via DOCKERHUB_USERNAME et DOCKERHUB_TOKEN
 
-Build de l’image Docker du back :
+	Build de l’image Docker du back :
 
-Contexte : back/
+	Contexte : back/
 
-Dockerfile : back/Dockerfile
+	Dockerfile : back/Dockerfile
 
-Push vers Docker Hub :
+	Push vers Docker Hub :
 
-monapp-backend:latest
+	monapp-backend:latest
 
-monapp-backend:${{ github.sha }} (tag unique par commit)
+	monapp-backend:${{ github.sha }} (tag unique par commit)
 
 📊 KPI à surveiller sur SonarCloud
 
