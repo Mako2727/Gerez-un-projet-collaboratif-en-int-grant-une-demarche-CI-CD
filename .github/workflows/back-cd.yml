@@ -24,6 +24,9 @@ jobs:
           java-version: 11
           distribution: temurin
 
+      - name: Run Maven tests (with Jacoco)
+        run: mvn clean verify jacoco:report
+
       - name: Build Maven Project
         run: mvn clean package -DskipTests
 
