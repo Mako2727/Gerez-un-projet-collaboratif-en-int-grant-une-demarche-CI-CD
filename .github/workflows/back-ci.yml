@@ -41,5 +41,6 @@ jobs:
             -Dsonar.java.binaries=target/classes
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
             -Dsonar.branch.name=master
+            
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACK }}

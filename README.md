@@ -155,3 +155,9 @@ Nom sur Docker Hub	${{ secrets.DOCKERHUB_USERNAME }}/monapp-backend
 Tags	latest, ${{ github.sha }}
 Contexte	back/
 Fichier Dockerfile	back/Dockerfile
+
+
+🧠 Analyse des métriques et des retours utilisateurs
+
+L’analyse des métriques et des retours utilisateurs permet d’évaluer la qualité globale du pipeline, la stabilité du code et la satisfaction des équipes.
+Ces indicateurs aident à identifier les axes d’amélioration, que ce soit sur le temps de build, la couverture des tests ou l’expérience développeur.
