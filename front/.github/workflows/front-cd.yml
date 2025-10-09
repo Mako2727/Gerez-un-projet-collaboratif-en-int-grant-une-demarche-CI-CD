@@ -27,6 +27,9 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Run Karma tests with coverage
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
       - name: Build Angular App (Production)
         run: npx ng build --configuration production
 
