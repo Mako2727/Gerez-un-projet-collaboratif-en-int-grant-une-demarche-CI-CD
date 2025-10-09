@@ -1,116 +1,114 @@
-🎨 Front-end
+# 🚀 Projet Fullstack — Angular & Spring Boot
 
-Le projet Front-end est un module Angular géré via le pipeline CI/CD GitHub Actions.
+---
 
-Install dependencies (si nécessaire pour modifications locales) :
+## 🎨 FRONT-END (Angular)
+
+### ⚙️ Installation locale
+```bash
 cd front
 npm install
-⚠️ Les builds et déploiements sont automatisés via GitHub Actions et Docker Hub.
+npm run start
 
 
-⚙️ Back-end
-Le projet Back-end est un module Spring Boot géré via le pipeline CI/CD GitHub Actions.
+⚡ CI — Intégration Continue (GitHub Actions)
 
-Install dependencies (si nécessaire pour modifications locales) :
+À chaque push sur une branche, le workflow CI Frontend :
 
+Installe les dépendances (npm ci)
+
+Exécute les tests unitaires avec Karma
+
+Génère le rapport de couverture de code (front/coverage/bobapp/lcov.info)
+
+Upload l’artefact de couverture pour le job global SonarCloud
+
+Compile l’application Angular (npm run build -- --prod)
+
+Objectif : garantir que le front-end est stable, testé et compilable avant toute livraison.
+
+
+🚀 CD — Déploiement Continu (Docker Hub)
+
+Le workflow CD Frontend :
+
+Construit l’image Docker à partir du Dockerfile dans front/
+
+Se connecte à Docker Hub
+
+Push l’image avec deux tags :
+
+mako2727/monapp-frontend:latest
+mako2727/monapp-frontend:<commit-sha>
+
+
+Objectif : disposer d’images Docker versionnées et prêtes pour le déploiement.
+
+
+📊 KPIs SonarCloud — Front
+Indicateur	Objectif	Source
+Couverture de tests	≥ 80 %	Rapport Karma / lcov
+Bugs & Vulnérabilités	Niveau A	Analyse SonarCloud
+Duplications	≤ 3 %	SonarCloud
+Code Smells	≤ 10	SonarCloud
+
+
+
+⚙️ BACK-END (Spring Boot)
+⚙️ Installation locale
 cd back
 mvn clean install
-⚠️ Les builds, tests, analyses SonarCloud et déploiements Docker sont automatisés via GitHub Actions.
+mvn spring-boot:run
 
-📝 Fichier de configuration
-Le projet Back utilise un fichier application.properties pour la configuration du pipeline et de SonarCloud :
+⚡ CI — Intégration Continue (GitHub Actions)
 
-# Projet global
-sonar.projectKey=...
-sonar.organization=...
-sonar.host.url=https://sonarcloud.io
-sonar.modules=back,front
+À chaque push sur une branche, le workflow CI Backend :
 
+Configure l’environnement Java (Temurin 11)
 
-# BACK
-back.sonar.projectBaseDir=back
-back.sonar.sources=src/main/java
-back.sonar.tests=src/test/java
-back.sonar.java.binaries=target/classes
-back.sonar.java.coveragePlugin=jacoco
-back.sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+Exécute les tests (mvn clean verify)
+
+Génère un rapport de couverture Jacoco (back/target/site/jacoco/jacoco.xml)
+
+Upload l’artefact pour SonarCloud
+
+Prépare les classes compilées (target/classes) pour l’analyse
+
+Objectif : assurer une couverture suffisante et détecter les régressions sur l’API.
 
 
-# FRONT
-front.sonar.projectBaseDir=front
-front.sonar.sources=src/app
-front.sonar.tests=src
-front.sonar.test.inclusions=**/*.spec.ts
-front.sonar.javascript.lcov.reportPaths=coverage/lcov.info
+🚀 CD — Déploiement Continu (Docker Hub)
 
-⚠️ Ce fichier configure les paramètres d’analyse SonarCloud pour les deux modules.
+Le pipeline CD Backend :
 
-⚡ CI/CD & Docker Hub
+Construit l’image Docker depuis back/Dockerfile
 
-Le pipeline GitHub Actions automatise la construction, les tests, l’analyse Sonar et le déploiement Docker pour Front et Back de manière indépendante.
+Se connecte à Docker Hub
 
-🛠️ Étapes du workflow
+Push l’image avec deux tags :
 
-# Frontend
-
-Build Angular et installation des dépendances
-
-Tests unitaires avec Karma et génération du coverage
-
-Analyse qualité sur SonarCloud
-
-Build et push Docker Hub (latest et SHA commit)
-
-# Backend
-
-Build Spring Boot et installation des dépendances
-
-Tests unitaires avec Maven et génération du coverage Jacoco
-
-Analyse qualité sur SonarCloud
-
-Build et push Docker Hub (latest et SHA commit)
-
-Pipeline simplifié :
-Frontend + Tests ---> SonarCloud ---> Docker Hub
-Backend + Tests ---> SonarCloud ---> Docker Hub
-
-🔑 GitHub Actions secrets
-
-DOCKERHUB_USERNAME → username Docker Hub
-
-DOCKERHUB_TOKEN → token avec droits Read/Write/Delete
-
-SONAR_TOKEN → token SonarCloud
-
-📊 KPIs & Analyse des métriques
-KPI	Module	Source	Objectif
-Couverture tests	        Back	Jacoco XML	≥ 80%
-Couverture tests	        Front	Karma / lcov	≥ 80%
-Bugs / Vulnérabilités	    Back / Front	SonarCloud	Niveau A
-Temps de build	Global	    GitHub Actions	≤ 10 min
-Disponibilité Docker	    Back / Front	Docker Hub	100%
-
-📝 Analyse des métriques et retours des utilisateurs
-
-Front et Back déployés et analysés indépendamment → flexibilité maximale
-
-Pipeline automatisé → moins d’erreurs manuelles
-
-Images Docker fiables sur Docker Hub
-
-Possibilité de rollback grâce au tag SHA unique
-
-Temps moyen du pipeline : ~5 min
+mako2727/monapp-backend:latest
+mako2727/monapp-backend:<commit-sha>
 
 
-💡 Recommandations
+Objectif : garantir une disponibilité continue de l’API sous forme d’image versionnée.
 
-Surveiller régulièrement la couverture et la qualité du code via SonarCloud
+📊 KPIs SonarCloud — Back
+Indicateur	Objectif	Source
+Couverture de tests	≥ 80 %	Jacoco XML
+Bugs & Vulnérabilités	Niveau A	SonarCloud
+Duplications	≤ 3 %	SonarCloud
+Code Smells	≤ 15	SonarCloud
 
-Ajouter des tests e2e pour le Front et le Back
 
-Mettre en place notifications GitHub en cas d’échec du pipeline
+🐳 Image Docker — Back
+Nom de l’image	Description
+mako2727/monapp-backend:latest	Image courante du back-end
+mako2727/monapp-backend:<commit-sha>	Version spécifique liée au commit Git
 
-Le fichier application.properties doit être correctement configuré pour le pipeline
 
+🔑 Secrets GitHub Actions
+DOCKERHUB_TOKEN
+DOCKERHUB_USERNAME
+SONAR_TOKEN_BACK
+SONAR_TOKEN_FRONT
