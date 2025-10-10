@@ -14,7 +14,7 @@ L’application sera accessible sur http://localhost:4200
 ⚙️ CI – GitHub Actions (Intégration Continue)  
 📄 Fichier : .github/workflows/front-ci.yml  
 
-	👉 Ce workflow Se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Front  
+	👉 Ce workflow se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Front  
 
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.   
 	Installe Node.js version 18, nécessaire pour exécuter Angular  
@@ -27,8 +27,8 @@ L’application sera accessible sur http://localhost:4200
   
 👉 Pour déclencher le CD, assurez-vous que les KPI sur SonarCloud sont respectés, puis réalisez le merge de la branche feature vers main.
 
-🚀 CD – GitHub Actions (Déploiement Continu)
-📄 Fichier : .github/workflows/front-cd.yml
+🚀 CD – GitHub Actions (Déploiement Continu)  
+📄 Fichier : .github/workflows/front-cd.yml  
 
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.  
 	Installe la version 18 de Node.js, nécessaire pour exécuter Angular  
@@ -49,7 +49,6 @@ Pour développer ou tester localement le back-end :
 	cd back  
 	mvn clean install  
 	mvn spring-boot:run  
-
 
 	L’API sera accessible sur http://localhost:8080  
 
@@ -84,11 +83,13 @@ Pour développer ou tester localement le back-end :
 🧠 Analyse des métriques et des retours utilisateurs  
 KPI a suivre
 Coverage (Back end)  
-![Coverage-Back](ressources/images/Coverage-back.png)
+	il serait bien de réaliser plus de test unitaire et d'intégration pour que ce seuil ateigne au moins 80%  
+![Coverage-Back](ressources/images/Coverage-back.png)  
 
 
 Security hotspot (back end)  
-![security-hotspot-Back](ressources/images/security-hotspot-backe.png)
+	une correstion serait souhaitable pour remedier a cette potentioel faille de sécurité  
+![security-hotspot-Back](ressources/images/security-hotspot-backe.png)  
 
 Notes et avis  
 Backend :  
