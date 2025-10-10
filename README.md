@@ -94,14 +94,17 @@ Security hotspot (back end)
 ![security-hotspot-Back](ressources/images/security-hotspot-backe.png)  
 
 Notes et avis  
-Backend :  
+
+**Backend :**  
 	Coverage actuel du back: 38,8%, largement inférieur au seuil minimal attendu (ex. 80%).  
 	Action prioritaire : Ajouter des tests unitaires et d’intégration pour augmenter la couverture, surtout sur les composants critiques.  
 	Security Hotspots Reviewed : 0,0%.  
 	Action prioritaire : Examiner et valider les points de sécurité détectés par SonarCloud pour éviter les vulnérabilités potentielles.  
-Frontend:  
+	
+**Frontend: ** 
 	Les rapports de sonar sur la partie Front sont actuellement corrects. Il faut tout de même continuer à les viser pour ne pas dériver.  
 
-Retours utilisateurs :Les développeurs apprécient la visibilité immédiate de la qualité du code grâce à SonarCloud.  
+
+**Retours utilisateurs :** Les développeurs apprécient la visibilité immédiate de la qualité du code grâce à SonarCloud.  
 L’analyse des métriques et des retours utilisateurs permet d’évaluer la qualité globale du pipeline, la stabilité du code et la satisfaction des équipes.  
 Ces indicateurs aident à identifier les axes d’amélioration, que ce soit sur le temps de build, la couverture des tests ou l’expérience développeur.
