@@ -1,7 +1,7 @@
-🎨 Frontend – Angular
-🧩 Installation locale
+🎨 Frontend – Angular  
+🧩 Installation locale  
 
-Pour développer ou tester localement le front-end :
+Pour développer ou tester localement le front-end :  
 
 cd front  
 npm install  
@@ -14,7 +14,7 @@ L’application sera accessible sur http://localhost:4200
 ⚙️ CI – GitHub Actions (Intégration Continue)  
 📄 Fichier : .github/workflows/front-ci.yml  
 
-	👉 Ce workflow Se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Front
+	👉 Ce workflow Se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Front  
 
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.   
 	Installe Node.js version 18, nécessaire pour exécuter Angular  
@@ -84,11 +84,11 @@ Pour développer ou tester localement le back-end :
 🧠 Analyse des métriques et des retours utilisateurs  
 KPI a suivre
 Coverage (Back end)  
-![Coverage](images/ci-cd.png)
+![Coverage-Back](ressources/images/Coverage-back.png)
 
 
 Security hotspot (back end)  
-![security-hotspot](images/ci-cd.png)
+![security-hotspot-Back](ressources/images/security-hotspot-backe.png)
 
 Notes et avis  
 Backend :  
