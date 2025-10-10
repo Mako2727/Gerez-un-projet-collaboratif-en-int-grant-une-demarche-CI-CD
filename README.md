@@ -100,7 +100,7 @@ Notes et avis
 	Action prioritaire : Ajouter des tests unitaires et d’intégration pour augmenter la couverture, surtout sur les composants critiques.  
 	Security Hotspots Reviewed : 0,0%.  
 	Action prioritaire : Examiner et valider les points de sécurité détectés par SonarCloud pour éviter les vulnérabilités potentielles.  
-	
+
 **Frontend: ** 
 	Les rapports de sonar sur la partie Front sont actuellement corrects. Il faut tout de même continuer à les viser pour ne pas dériver.  
 
