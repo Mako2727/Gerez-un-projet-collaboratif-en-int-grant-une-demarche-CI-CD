@@ -55,7 +55,9 @@ Pour développer ou tester localement le back-end :
 ⚙️ CI – GitHub Actions (Intégration Continue)  
 📄 Fichier : .github/workflows/back-ci.yml  
 
+
 👉 Se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Back  
+
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.  
 	Installe Java 11 (distribution Temurin).  
 	Exécution des tests Maven + génération du rapport de couverture  
