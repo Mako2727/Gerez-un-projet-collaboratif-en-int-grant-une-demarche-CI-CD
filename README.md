@@ -1,4 +1,4 @@
-🎨 Frontend – Angular  
+🎨 Frontend – Angular  (version 14.2.0)  
 🧩 Installation locale  
 
 Pour développer ou tester localement le front-end :  
@@ -16,6 +16,7 @@ L’application sera accessible sur http://localhost:4200
 
 	👉 Ce workflow se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Front  
 
+	On indique que les tests vont s exécuter sur une machine virtuelle Ubuntu  
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.   
 	Installe Node.js version 18, nécessaire pour exécuter Angular  
 	exécuter les tests Angular avec Karma en mode Headless (Chrome sans interface graphique).  
@@ -30,6 +31,7 @@ L’application sera accessible sur http://localhost:4200
 🚀 CD – GitHub Actions (Déploiement Continu)  
 📄 Fichier : .github/workflows/front-cd.yml  
 
+	On indique que les tests vont s exécuter sur une machine virtuelle Ubuntu  
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.  
 	Installe la version 18 de Node.js, nécessaire pour exécuter Angular  
 	Installe toutes les dépendances  
@@ -41,7 +43,7 @@ L’application sera accessible sur http://localhost:4200
 
 
 
-🎨 Backend – Spring Boot  
+🎨 Backend – Spring Boot  (Java 11)  
 🧩 Installation locale  
 
 Pour développer ou tester localement le back-end :
@@ -58,6 +60,7 @@ Pour développer ou tester localement le back-end :
 
 👉 Se déclenche uniquement sur un push sur la branch Feature-Branch et pour des modifications sur le répertoire Back  
 
+	On indique que les tests vont s exécuter sur une machine virtuelle Ubuntu  
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.  
 	Installe Java 11 (distribution Temurin).  
 	Exécution des tests Maven + génération du rapport de couverture  
@@ -71,6 +74,7 @@ Pour développer ou tester localement le back-end :
 
 	Se déclenche uniquement sur un push sur la branch Main et pour des modifications sur le répertoire Back  
 
+	On indique que les tests vont s exécuter sur une machine virtuelle Ubuntu  
 	Récupère le code source de ton dépôt pour que les étapes suivantes puissent y accéder.  
 	Installe Java 11  
 	Exécution des tests et génération du rapport JaCoCo  
