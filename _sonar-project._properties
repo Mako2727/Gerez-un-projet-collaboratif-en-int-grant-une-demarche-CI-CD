@@ -1,9 +1,0 @@
-# ==== Projet global ====
-sonar.host.url=https://sonarcloud.io
-
-
-
-# Encoding par défaut
-sonar.sourceEncoding=UTF-8
-
-
